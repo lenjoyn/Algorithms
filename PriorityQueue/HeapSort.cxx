@@ -4,8 +4,9 @@ using namespace std;
 
 
 bool compare(vector<int>* a, int i, int j){
-
+     //cout<<"test compare: "<<bool(a->at(i)>a->at(j))<<endl;
      if(a->at(i)>a->at(j)) return 1;
+      
      return 0;
 }
 
@@ -19,13 +20,14 @@ void hsort(vector<int> &a_in){
    priority_q pq=priority_q();
    int size = a_in.size();
 
+ 
    
    while(a_in.size()>0){
-     cout<<a_in[a_in.size()-1]<<" "<<endl;
      pq.Insert(a_in[a_in.size()-1]);
      a_in.pop_back();
    }
-   cout<<endl;
+ 
+   int te=size-1;
 
    while(a_in.size()!=size){
      a_in.push_back(pq.delRoot());

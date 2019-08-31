@@ -25,31 +25,45 @@ public:
          a->pop_back();
 
          int k=0;
-         while(!comp(a, k,2*(k+1)-1) || !comp(a, k,2*(k+1))){
-
-            int p = comp(a,2*(k+1)-1,2*(k+1))?2*(k+1)-1:2*(k+1);
-            std::swap(a->at(p),a->at(k));
-            k=p;
-            if(k>a->size()-1) break; 
-             
-         } 
+         sink(k);
          return out;
     }
 
 
     void Insert(T in){
          a->push_back(in);
-         if(a->size()<1) return; 
          int k= a->size()-1;
-         if(a->size()<2) return;
-         while(comp(a,k,(k+1)/2-1)){
-            std::swap(a->at(k),a->at(k+1/2-1));
-            k=k/2-1;
-            if(k==0) break;
-         }
+         if(k<1) return;
+         swim(k);
     }
 
-//private:
+
+
+private:
+    void swim(int k){
+         while(comp(a,k,(k+1)/2-1)){
+            std::swap(a->at(k),a->at((k+1)/2-1));
+            k=(k+1)/2-1;
+            if(k==0) break;
+         }
+
+    }
+    void sink(int k){
+         while(2*k+1<a->size()){
+            int p=2*k+1;
+            if(p+2>a->size()){
+              if(comp(a,k,p)) break;
+              swap(a->at(k), a->at(p));
+              k=p;
+            }
+            else if(!comp(a,k,p)||!comp(a,k,p+1)){
+              p = comp(a,p,p+1)?p : p+1;
+              swap(a->at(k), a->at(p));
+              k=p;
+            }
+            else break;
+         }
+    }
     vector<T>* a;    
 };
 #endif

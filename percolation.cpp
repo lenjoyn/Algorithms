@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <math.h>
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+// for union find
 //construct the matrix
 using namespace std;
 vector<int> roots;

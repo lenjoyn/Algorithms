@@ -4,10 +4,7 @@ using namespace std;
 
 
 bool compare(vector<int>* a, int i, int j){
-     //cout<<"test compare: "<<bool(a->at(i)>a->at(j))<<endl;
-     if(a->at(i)>a->at(j)) return 1;
-      
-     return 0;
+     return a->at(i)>a->at(j); 
 }
 
 typedef PQ<int, compare> priority_q;

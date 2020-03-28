@@ -1,0 +1,1 @@
+/usr/bin/c++  -O2 -g -DNDEBUG   CMakeFiles/Baseball_Elimination.dir/Baseball_elimination.cpp.o  -o /home/cylin/Algorithms/Baseball_Elimination/run/Baseball_Elimination 

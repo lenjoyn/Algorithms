@@ -9,6 +9,7 @@
 #include<fstream>
 #include<sstream>
 #include"../Tries/Tries.h"
+
 using namespace std;
 using boost::format;
 
@@ -21,7 +22,7 @@ class BoggleBoard{
       int x_size;
       int y_size;
       vector<vector<char>> board;
-
+      Tries dict;
       void Board(int x_range, int y_range){
           x_size=x_range;
           y_size=y_range;
@@ -67,6 +68,29 @@ class BoggleBoard{
            }
       }
 
+      void validWords(int x, int y, unordered_map<string,bool>& words, vector<vector<bool>> checked,string word){
+
+           if(x==x_size||x<0) return;
+           if(y==y_size||y<0) return;
+           if(checked[y][x])  return;
+           checked[y][x] = true;
+           word+=board[y][x];
+           if(board[y][x] =='Q') word+='U';
+           int exist = dict.get(word);
+           if(exist<0 ) return;
+           if(exist==1 && words.find(word)==words.end()) words[word] = 1;
+
+           validWords(x+1, y+1, words, checked, word);
+           validWords(x+1, y, words, checked, word);
+           validWords(x+1, y-1, words, checked, word);
+           validWords(x, y+1, words, checked, word);
+           validWords(x, y-1, words, checked, word);
+           validWords(x-1, y+1, words, checked, word);
+           validWords(x-1, y, words, checked, word);
+           validWords(x-1, y-1, words, checked, word);
+        
+     }
+     
    public:
       BoggleBoard(){
          Board(4,4); 
@@ -77,7 +101,9 @@ class BoggleBoard{
       BoggleBoard(string filename){
          Board(filename);
       }
-
+      void setDict(Tries& tri){
+         dict = tri;
+      }
 
       void Print(){
 
@@ -88,6 +114,18 @@ class BoggleBoard{
               }
               cout<<"\n";
            }
+      }
+
+      unordered_map<string, bool> validWords(){
+            
+            unordered_map<string,bool> words;
+            for(int y=0; y<y_size; ++y){
+               for(int x=0; x<x_size; ++x){
+                  vector<vector<bool>> checked(y_size, vector<bool> (x_size, 0));
+                  validWords(x, y, words, checked, "");
+               }
+            }
+            return words;
       }
 
 };

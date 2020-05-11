@@ -1,0 +1,2 @@
+add_library(MoF INTERFACE)
+target_sources(MoF INTERFACE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/MoF/MoF.h>)
